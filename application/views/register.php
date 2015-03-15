@@ -6,7 +6,7 @@
           
 <h1 class="header">Register</h1>
 
-                <form class="frm frm-register" id="register-form" action="<?= base_url('registerClass/register_submit'); ?>" method="post" name="register">
+                <form class="frm frm-register" id="register-form" action="<?= base_url('register/doregister_submit'); ?>" method="post" name="register">
                     <span id="register-error"></span>
                     <table>
                         <tr>

@@ -11,23 +11,24 @@
  *
  * @author gaurav
  */
-class loginClass extends CI_Controller {
+class Login extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
         session_start();
         $this->load->model('user_model');
+        //echo "hello";
         //$this->load->model('cvmaker_model_fetch');
         
     }
-     function login() {
+     function dologin() {
         if (isset($_SESSION['email'])) {
-            redirect(base_url('homeClass/home_page'));
+            redirect(base_url('home/home_page'));
         } else {
             $this->load->view('login');
         }
     }
-    function login_submit() {
+    function dologin_submit() {
         $this->form_validation->set_rules('login_email', 'Email', 'trim|required|xss_clean|valid_email');
         $this->form_validation->set_rules('login_password', 'Password', 'trim|required|xss_clean');
         if ($this->form_validation->run() == FALSE) {
@@ -47,13 +48,13 @@ class loginClass extends CI_Controller {
                 $data->success =TRUE;
                 $data->errorMsg= "Login Successful!!";
                 echo json_encode($data);
-                redirect(base_url('homeClass/home_page'));
+                
+                redirect(base_url('home/home_page'));
             } else {
                 $data = new stdClass();
                 $data->success =FALSE;
                 $data->errorMsg= "Incorrect Email-Password Combination!!";
                 echo json_encode($data);
-                //redirect(base_url('cvmaker/login'));
             }
         }
     }

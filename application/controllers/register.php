@@ -5,7 +5,7 @@
  *
  * @author gaurav
  */
-class registerClass extends CI_Controller {
+class Register extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
@@ -14,13 +14,13 @@ class registerClass extends CI_Controller {
         //$this->load->model('cvmaker_model_fetch');
         
     }
-    function register() {
+    function doregister() {
        
         //echo "helleo";
         $this->load->view('register');
         
     }
-    function register_submit() {
+    function doregister_submit() {
         $this->form_validation->set_rules('register_email', 'Email', 'trim|required|xss_clean|valid_email|is_unique[users.email]');
         $this->form_validation->set_rules('register_password', 'Password', 'min_length[8]|max_length[20]|matches[register_passconf]|required');
         $this->form_validation->set_rules('register_passconf', 'Password Confirmation', 'required');
@@ -41,7 +41,7 @@ class registerClass extends CI_Controller {
                 $data->success =TRUE;
                 $data->errorMsg= "Successfully Added";
                 echo json_encode($data);
-                echo "<a href=  ". base_url('ontest/login') . "> Login</a>" ;
+                echo "<a href=  ". base_url('login/dologin') . "> Login</a>" ;
                 //echo json_encode($data);
             } else {
               //  $this->load->view('login');
