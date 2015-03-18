@@ -16,10 +16,8 @@ class Login extends CI_Controller {
     public function __construct() {
         parent::__construct();
         session_start();
-        $this->load->model('user_model');
-        //echo "hello";
-        //$this->load->model('cvmaker_model_fetch');
-        
+        $this->load->model('user_model'); 
+        $this->load->model('student_model');
     }
      function dologin() {
         if (isset($_SESSION['email'])) {
@@ -48,25 +46,30 @@ class Login extends CI_Controller {
                 $data->success =TRUE;
                 $data->errorMsg= "Login Successful!!";
                 echo json_encode($data);
-                echo $row[0]->profile_complete;
-                if($row[0]->check_user_type=='Teacher'){
-                if(($row[0]->profile_complete)==1){
-                   // redirect(base_url('home/home_page'));
-                    redirect(base_url('home/home_page'));
+                    $profile = $row[0]->profile_complete;
+                    if($row[0]->check_user_type=='Teacher'){
+                	if(($profile)==1){
+                    	redirect(base_url('home/home_page'));
+                	}
+                	else{
+                        redirect(base_url('updateInfo/doteacherInfo'));
+                	}
+                    }
+                    else if($row[0]->check_user_type=="Student"){
+			if($profile==1){
+			redirect(base_url('home/home_page'));
+			}
+			else{
+			redirect(base_url('updateInfo/dostudentInfo'));     	
+                	}
+                    }
                 }
-                else{
-                    $this->load->view('updateprofile');
-                }
-                }
-                else{
-                     //redirect(base_url('home/home_page'));
-                }
-            } else {
+                else {
                 $data = new stdClass();
                 $data->success =FALSE;
                 $data->errorMsg= "Incorrect Email-Password Combination!!";
                 echo json_encode($data);
+                }
             }
         }
     }
-}

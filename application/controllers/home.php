@@ -10,7 +10,7 @@ class Home extends CI_Controller {
         parent::__construct();
         session_start();
         $this->load->model('user_model');
-        //$this->load->model('cvmaker_model_fetch');
+        $this->load->model('student_model');
     }
     function home_page() {
         $this->load->view('home');

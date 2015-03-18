@@ -7,7 +7,7 @@
 
         <h1 class="header">Profile</h1>
 
-        <form class="frm frm-login" id="login-form" action="<?= base_url('updateprofile/doprofile_submit'); ?>" method="post" name="login">
+        <form class="frm frm-login" id="login-form" action="<?= base_url('updateInfo/doteacherInfoUpdate'); ?>" method="post" name="login">
             <span id=""></span>
             <table >
                 <tr>

@@ -14,11 +14,9 @@ class Index extends CI_Controller {
     }
 
     public function index() {
-        //echo "hrllo";
         if (isset($_SESSION['email'])) {
             redirect(base_url('/home/home_page'));
-        } else {
-           
+        } else {           
             redirect(base_url('login/dologin'));
         }
     }
@@ -27,7 +25,5 @@ class Index extends CI_Controller {
             session_destroy();
         redirect(base_url('index'));
     }
-
-   
 
 }
