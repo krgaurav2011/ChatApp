@@ -48,8 +48,19 @@ class Login extends CI_Controller {
                 $data->success =TRUE;
                 $data->errorMsg= "Login Successful!!";
                 echo json_encode($data);
-                
-                redirect(base_url('home/home_page'));
+                echo $row[0]->profile_complete;
+                if($row[0]->check_user_type=='Teacher'){
+                if(($row[0]->profile_complete)==1){
+                   // redirect(base_url('home/home_page'));
+                    redirect(base_url('home/home_page'));
+                }
+                else{
+                    $this->load->view('updateprofile');
+                }
+                }
+                else{
+                     //redirect(base_url('home/home_page'));
+                }
             } else {
                 $data = new stdClass();
                 $data->success =FALSE;

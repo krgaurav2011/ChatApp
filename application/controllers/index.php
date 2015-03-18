@@ -22,7 +22,7 @@ class Index extends CI_Controller {
             redirect(base_url('login/dologin'));
         }
     }
-    function logout() {
+        public function logout() {
         if (isset($_SESSION))
             session_destroy();
         redirect(base_url('index'));

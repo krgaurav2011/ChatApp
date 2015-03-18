@@ -13,4 +13,10 @@ class user_model extends CI_Model
         $query = $this->db->query($sql);
         return $query;
     }
+    function profile_complete($email)
+    {
+        $sql="update users set profile_complete=1 where email = '$email'" ;
+        $query=$this->db->query($sql);
+        return $query;
+    }
 }    
