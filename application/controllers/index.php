@@ -1,10 +1,6 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 class Index extends CI_Controller {
 
@@ -15,7 +11,10 @@ class Index extends CI_Controller {
 
     public function index() {
         if (isset($_SESSION['email'])) {
-            redirect(base_url('/home/home_page'));
+            if($_SESSION['type'] == 1)
+                redirect(base_url('/home/teacherhome_page'));
+            else 
+                redirect(base_url('/home/studenthome_page'));
         } else {           
             redirect(base_url('login/dologin'));
         }

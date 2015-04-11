@@ -15,7 +15,6 @@ class Test extends CI_Controller {
 
     function showtests() {
         $data['list'] = $this->test_model->fetch_tests();
-        //var_dump($data);
         $this->load->view('test', $data);
     }
 
@@ -140,7 +139,7 @@ class Test extends CI_Controller {
         $data['questionlimit'] = $this->number_of_questions;
         $data['questioncount'] = 1;
         $data['test_id'] = $this->test_id;
-        echo $data['test_id'];
+        //echo $data['test_id'];
         $this->load->view('setquestion', $data);
     }
 
@@ -187,6 +186,11 @@ class Test extends CI_Controller {
         $data['test_id'] = $this->test_id;
         echo $data['test_id'];
         $this->load->view('setquestion', $data);
+    }
+    function view($id){
+        $testid=$id;
+        $question['list']=$this->test_model->fetch_test_questions($testid);
+        $this->load->view('viewEditQuestion',$question);    
     }
 
 }

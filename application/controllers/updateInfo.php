@@ -1,11 +1,7 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-class updateInfo extends CI_Controller{
+class updateInfo extends CI_Controller {
+
     public function __construct() {
         parent::__construct();
         session_start();
@@ -13,47 +9,65 @@ class updateInfo extends CI_Controller{
         $this->load->model('student_model');
         $this->load->model('teacher_model');
     }
-    
-    function dostudentInfo(){
+
+    function dostudentInfo() {
         $this->load->view('ProfileUpdate_Student');
     }
-    function dostudentInfoUpdate(){
-        $id=$_SESSION['id'];
-        $email=$_SESSION['email'];
-        $name=  $this->input->post('student_name');
-        $age=  $this->input->post('student_age');
-        $education=  $this->input->post('student_education');
-        $gender=  $this->input->post('student_sex');
-        $update=$this->student_model->UpdateStudentInfo($id,$name,$age,$education,$gender);
-        echo "Successfully updated database";
-        $profile_update=$this->user_model->profile_complete($email);
-        redirect(base_url('home/home_page'));
+
+    function dostudentInfoUpdate() {
+        $id = $_SESSION['id'];
+        $email = $_SESSION['email'];
+        $name = $this->input->post('student_name');
+        $age = $this->input->post('student_age');
+        $education = $this->input->post('student_education');
+        $gender = $this->input->post('student_sex');
+        $ifexist = $this->student_model->name($id);
+        if ($ifexist == NULL) {
+            $update = $this->student_model->UpdateStudentInfo($id, $name, $age, $education, $gender);
+            echo "Successfully updated database";
+            $profile_update = $this->user_model->profile_complete($email);
+            redirect(base_url('home/studenthome_page'));
+        } else {
+            $update = $this->student_model->UpdateExistingStudentInfo($id, $name, $age, $education, $gender);
+            redirect(base_url('home/studenthome_page'));
+        }
     }
-    function doteacherInfo(){
-        $this->load->view('updateprofile');
+
+    function doteacherInfo() {
+        $this->load->view('newTeacherProfile');
     }
-    function doteacherInfoUpdate() {
-        $id=$_SESSION['id'];
-        $email=$_SESSION['email'];
+
+    function existingTeacherInfo() {
+        $this->load->view('updateTeacherProfile');
+    }
+
+    function updateExistingTeacher() {
+        $id = $_SESSION['id'];
         $name = $this->input->post('update_name');
         $sex = $this->input->post('update_sex');
         $photo = $this->input->post('update_photo');
         $designation = $this->input->post('update_designation');
         $age = $this->input->post('update_age');
-        $success = $this->teacher_model->insert_update($id,$name, $sex,$photo,$designation,$age);
-        if ($success== 1) {
-            $data = new stdClass();
-            $data->success =TRUE;
-            $data->errorMsg= "Successfully Added";
-            echo json_encode($data);
-            $updateprofile=$this->user_model->profile_complete($email);
-            redirect(base_url('/home/home_page'));
-            }
-            else {
-            $data = new stdClass();
-            $data->success =FALSE;
-            $data->errorMsg= "Oops Something Went Wrong!!";
-            echo json_encode($data);
-            }
+        $success = $this->teacher_model->update_Existing($id, $name, $sex, $designation, $age);
+        if ($success == 1) {
+            $updateprofile = $this->user_model->profile_complete($email);
+            redirect(base_url('/teacher_home/teacherHome'));
         }
+    }
+
+    function doteacherInfoUpdate() {
+        $id = $_SESSION['id'];
+        $email = $_SESSION['email'];
+        $name = $this->input->post('update_name');
+        $sex = $this->input->post('update_sex');
+        $photo = $this->input->post('update_photo');
+        $designation = $this->input->post('update_designation');
+        $age = $this->input->post('update_age');
+        $success = $this->teacher_model->insert_update($id, $name, $sex, $photo, $designation, $age);
+        if ($success == 1) {
+            $updateprofile = $this->user_model->profile_complete($email);
+            redirect(base_url('/home/teacherhome_page'));
+        }
+    }
+
 }

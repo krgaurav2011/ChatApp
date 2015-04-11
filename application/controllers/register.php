@@ -29,22 +29,17 @@ class Register extends CI_Controller {
             $data->success =FALSE;
             $data->errorMsg= "Recheck your Entries!!";
             echo validation_errors();
-           // $this->load->view('login');
         } else {
             $email = $this->input->post('register_email');
             $password = md5($this->input->post('register_password'));
             $type= $this->input->post('type');
             $success = $this->user_model->insert_user($email, $password,$type);
             if ($success == 1) {
-               //$this->load->view('register_success');
                 $data = new stdClass();
                 $data->success =TRUE;
                 $data->errorMsg= "Successfully Added";
                 echo json_encode($data);
-                echo "<a href=  ". base_url('login/dologin') . "> Login</a>" ;
-                //echo json_encode($data);
             } else {
-              //  $this->load->view('login');
                 $data = new stdClass();
                 $data->success =FALSE;
                 $data->errorMsg= "Oops Something Went Wrong!!";

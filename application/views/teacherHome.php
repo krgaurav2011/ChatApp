@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Test Description</title>
+        <title><?php echo $name[0]->designation . " " . $name[0]->name; ?></title>
         <link rel="stylesheet" href="http://localhost/ontest/Static/css/bootstrap.min.css"/>
         <script type="text/javascript" src="http://localhost/ontest/Static/js/googleJquery.js"></script>
         <script type="text/javascript" src="http://localhost/ontest/Static/js/bootstrap.min.js"></script>
@@ -11,14 +11,14 @@
 
         <style type="text/css">
             #panel{
-                position: relative;
+                position: absolute;
                 background-color: whitesmoke;
                 color: #000; 
                 padding-top: 1%;
                 padding-bottom: 1%;
                 margin: 1.3%;
                 padding-left: 0%;
-                width: 60%;
+                width: 80%;
                 margin-left: 10%;
                 border-radius: 1em;
                 opacity: 0.7;
@@ -38,7 +38,7 @@
                 opacity: 0.7;
             }
             body{
-                background: url("http://localhost/ontest/Static/images/Exam.jpg") fixed;
+                background: url("http://localhost/ontest/Static/images/quote1.jpg") fixed;
                 background-size: 98%;
             }
             #main{
@@ -78,25 +78,15 @@
             }
             #btn{
                 float: right;
-                width: 9em;
+                width: 7em;
                 text-decoration: none;
                 color: white;
             }
         </style>
+
     </head>
+
     <body>
-         <?php
-            $attempted--;
-            $question= $list[$attempted]->question;
-            $option1 = $list[$attempted]->option_1;
-            $option2 = $list[$attempted]->option_2;
-            $option3 = $list[$attempted]->option_3;
-            $option4 = $list[$attempted]->option_4;
-            $q_no = $list[$attempted]->q_no;
-            $positive=$list2[0]->positive_mark;
-            $negative=$list2[0]->negative_mark;
-            $num_of_questions = $list2[0]->number_of_questions;
-        ?> 
         <div id="header">
             <h1>e-Xamine</h1>
         </div>
@@ -115,9 +105,9 @@
             </div>
             <div id ="menu">
                 <div id="btn">
-                    <a href="<?php echo base_url('index'); ?>">
+                    <a href="<?php echo base_url('updateInfo/existingTeacherInfo'); ?>">
                         <div class="form-group">
-                            <input type="button" id="sub" value="Home" class="btn-info form-control">
+                            <input type="button" id="sub" value="Edit Profile" class="btn-info form-control">
                         </div>
                     </a>
                 </div>
@@ -136,36 +126,62 @@
                     </a>
                 </div>
             </div>
-            <div id="panel">
-               
-                <div class="well" style="padding-left: 10">
-                    
-                    <h2>
-                        <font color=red >Your Current Marks : <?php echo $marks; ?> <hr></font>
-                    </h2> 
-                    <h2><i><?php echo $q_no .". ". $question; ?> </i></h2>
-               
-                <form action="<?= base_url('/test/questionsubmit')?>" style="border-left-width: 10px;margin-left: 20px;" method ="post">
-                    <input type ="radio" name="resp" value="<?php echo $option1; ?>" > <?php echo $option1 ?> <br/>
-                    <input type ="radio" name="resp" value= "<?php echo $option2; ?>" > <?php echo $option2 ?> <br/>
-                    <input type ="radio" name="resp" value= "<?php echo $option3; ?>" > <?php echo $option3 ?> <br/>
-                    <input type ="radio" name="resp" value= "<?php echo $option4; ?>" > <?php echo $option4 ?> <br/>
-                    <input type ="hidden" name=question_no value="<?php echo $q_no;?>" >
-                    <input type ="hidden" name=test_no value="<?php echo $test_no;?>" >
-                    <input type ="hidden" name=positive value="<?php echo $positive;?>" >
-                    <input type ="hidden" name=negative value="<?php echo $negative;?>" >
-                    <input type ="hidden" name=score value="<?php echo $marks;?>" >
-                    <input type ="hidden" name=numq value="<?php echo $num_of_questions;?>" >
-                    <input style="margin-left: 100px;" type="submit" name="submit" value="Submit">
-                </form>
-                </div>
+            <div id="name">
+                <?php echo "Welcome ! " . $name[0]->designation . " " . $name[0]->name; ?>
             </div>
-            
+            <div id="panel">
+                <div id="btn">
+                    <a href="<?php echo base_url('test/set_test'); ?>">
+                        <input type="button" class="btn-primary" value="Set New Test">
+                    </a>
+                </div>               
+                <br><br><br>
+                <div>
+                    <i style="color: blue; padding-left: 20px"> You have set the following test(s) </i> 
+                </div>
+                <br>
+                <table class="table" style="color: #002166; padding-left: 20px">
+                    <tr>
+                        <th>TestID</th>
+                        <th>Subject</th>
+                        <th>Description</th>
+                        <th>No. Of Questions</th>
+                        <th>Full marks</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <?php
+                    if ($list == NULL) {
+                        echo '<tr>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>';
+                    } else {
+                        foreach ($list as $row) {
+                            $id = $row->id;
+                            $subject = $row->subject;
+                            $description = $row->description;
+                            $no_of_questions = $row->number_of_questions;
+                            $full_marks = $row->full_marks;
+                            echo'<tr>'
+                            . '<td>' . $id . '</td>'
+                            . '<td>' . $subject . '</td>'
+                            . '<td>' . $description . '</td>'
+                            . '<td>' . $no_of_questions . '</td>'
+                            . '<td>' . $full_marks . '</td>'
+                            . '<td><a href="' . base_url() . 'test/view/' . $id . '";>View Ques</a></td>'
+                            . '</tr>';
+                        }
+                    }
+                    ?>
 
+                </table>
+            </div>
         </div>
-            
-           
-    
-    
-    
-  
+    </div>
+</body>
+</html>

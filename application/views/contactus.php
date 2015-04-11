@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Test Description</title>
+        <title>Available Tests</title>
         <link rel="stylesheet" href="http://localhost/ontest/Static/css/bootstrap.min.css"/>
         <script type="text/javascript" src="http://localhost/ontest/Static/js/googleJquery.js"></script>
         <script type="text/javascript" src="http://localhost/ontest/Static/js/bootstrap.min.js"></script>
@@ -18,7 +18,7 @@
                 padding-bottom: 1%;
                 margin: 1.3%;
                 padding-left: 0%;
-                width: 60%;
+                width: 80%;
                 margin-left: 10%;
                 border-radius: 1em;
                 opacity: 0.7;
@@ -83,48 +83,61 @@
                 color: white;
             }
         </style>
+
     </head>
+
     <body>
-         <?php
-            $attempted--;
-            $question= $list[$attempted]->question;
-            $option1 = $list[$attempted]->option_1;
-            $option2 = $list[$attempted]->option_2;
-            $option3 = $list[$attempted]->option_3;
-            $option4 = $list[$attempted]->option_4;
-            $q_no = $list[$attempted]->q_no;
-            $positive=$list2[0]->positive_mark;
-            $negative=$list2[0]->negative_mark;
-            $num_of_questions = $list2[0]->number_of_questions;
-        ?> 
         <div id="header">
             <h1>e-Xamine</h1>
         </div>
         <div id="main">
-            <div id="login">
-                <form id="loginform" class="form-inline row" role="form" action="<?= base_url('index/logout'); ?>" method="post">
+            <?php if (!isset($_SESSION['id'])) {
+                ?>
+                <div id="login">
+                    <form id="loginform" class="form-inline row" role="form" action="<?= base_url('login/dologin_submit'); ?>" method="post">
 
-                    <!-- -->
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <input type="submit" id="submi" value="Logout" class="btn-danger form-control">
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <input type="text" name="login_email" id="login_email" placeholder="Enter your E-mail ID" class="form-control" value="<?php echo set_value('login_email'); ?>">
+                            </div>
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <input type="password" name="login_password" id="login_password" placeholder="Enter your Password" class="form-control">
+                            </div>
+                        </div>
+                        <!-- -->
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <button  id="submit" value="Login" class="btn-success form-control">Login </button>
 
-                </form>
-            </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            <?php } else {
+                ?>
+
+                <div id="login">
+                    <form id="loginform" class="form-inline row" role="form" action="<?= base_url('index/logout'); ?>" method="post">
+
+                        <!-- -->
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <input type="submit" id="submi" value="Logout" class="btn-danger form-control">
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            <?php }
+            ?>
             <div id ="menu">
                 <div id="btn">
                     <a href="<?php echo base_url('index'); ?>">
                         <div class="form-group">
                             <input type="button" id="sub" value="Home" class="btn-info form-control">
-                        </div>
-                    </a>
-                </div>
-                <div id="btn">
-                    <a href="<?php echo base_url('home/contactus'); ?>">
-                        <div class="form-group">
-                            <input type="button" id="sub" value="Contact Us" class="btn-info form-control">
                         </div>
                     </a>
                 </div>
@@ -135,37 +148,14 @@
                         </div>
                     </a>
                 </div>
+                <br><br>
             </div>
-            <div id="panel">
-               
-                <div class="well" style="padding-left: 10">
-                    
-                    <h2>
-                        <font color=red >Your Current Marks : <?php echo $marks; ?> <hr></font>
-                    </h2> 
-                    <h2><i><?php echo $q_no .". ". $question; ?> </i></h2>
-               
-                <form action="<?= base_url('/test/questionsubmit')?>" style="border-left-width: 10px;margin-left: 20px;" method ="post">
-                    <input type ="radio" name="resp" value="<?php echo $option1; ?>" > <?php echo $option1 ?> <br/>
-                    <input type ="radio" name="resp" value= "<?php echo $option2; ?>" > <?php echo $option2 ?> <br/>
-                    <input type ="radio" name="resp" value= "<?php echo $option3; ?>" > <?php echo $option3 ?> <br/>
-                    <input type ="radio" name="resp" value= "<?php echo $option4; ?>" > <?php echo $option4 ?> <br/>
-                    <input type ="hidden" name=question_no value="<?php echo $q_no;?>" >
-                    <input type ="hidden" name=test_no value="<?php echo $test_no;?>" >
-                    <input type ="hidden" name=positive value="<?php echo $positive;?>" >
-                    <input type ="hidden" name=negative value="<?php echo $negative;?>" >
-                    <input type ="hidden" name=score value="<?php echo $marks;?>" >
-                    <input type ="hidden" name=numq value="<?php echo $num_of_questions;?>" >
-                    <input style="margin-left: 100px;" type="submit" name="submit" value="Submit">
-                </form>
+            <div id="panel" style="padding-left: 25px; color: #A70000">
+                <div>
+                    <h4 style="color: blue; padding-left: 20px"> For Any Queries Feel free to write to us at queries@examine.com or gaurav999396@gmail.com  </p>
+                        <br>Visit our <a href="http://facebook.com" >Facebook Page </a></h4>
                 </div>
             </div>
-            
-
         </div>
-            
-           
-    
-    
-    
-  
+    </body>
+</html>

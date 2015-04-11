@@ -91,18 +91,48 @@
             <h1>e-Xamine</h1>
         </div>
         <div id="main">
-            <div id="login">
-                <form id="loginform" class="form-inline row" role="form" action="<?= base_url('index/logout'); ?>" method="post">
+            <?php if (!isset($_SESSION['id'])) {
+                ?>
+                <div id="login">
+                    <form id="loginform" class="form-inline row" role="form" action="<?= base_url('login/dologin_submit'); ?>" method="post">
 
-                    <!-- -->
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <input type="submit" id="submi" value="Logout" class="btn-danger form-control">
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <input type="text" name="login_email" id="login_email" placeholder="Enter your E-mail ID" class="form-control" value="<?php echo set_value('login_email'); ?>">
+                            </div>
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <input type="password" name="login_password" id="login_password" placeholder="Enter your Password" class="form-control">
+                            </div>
+                        </div>
+                        <!-- -->
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <button  id="submit" value="Login" class="btn-success form-control">Login </button>
 
-                </form>
-            </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            <?php } else {
+                ?>
+
+                <div id="login">
+                    <form id="loginform" class="form-inline row" role="form" action="<?= base_url('index/logout'); ?>" method="post">
+
+                        <!-- -->
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <input type="submit" id="submi" value="Logout" class="btn-danger form-control">
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+<?php }
+?>
             <div id ="menu">
                 <div id="btn">
                     <a href="<?php echo base_url('index'); ?>">
@@ -118,28 +148,67 @@
                         </div>
                     </a>
                 </div>
-                <div id="btn">
-                    <a href="<?php echo base_url('home/about'); ?>">
-                        <div class="form-group">
-                            <input type="button" id="sub" value="About Us" class="btn-info form-control">
-                        </div>
-                    </a>
-                </div>
             </div>
             <div id="panel" style="padding-left: 25px; color: #A70000">
                 <div>
-                    <i style="color: blue; padding-left: 20px"> The following are the tests available , Click on any of them for details ! </i> 
+                    <p style="color: blue; padding-left: 20px"> The Team Consisted of following Members ! </p> 
                 </div>
                 <br>
-                <?php
-                $i = 1;
-                foreach ($list as $row) {
-                    $id = $row->id;
-                    echo $i . ") <a href=" . base_url() . "test/loadtestinfo/" . $id . ">" . $row->subject . "</a><br>" . $row->description . "<br>By    :  " . $row->designation . " " . $row->name . "<br>\tFull Marks: "
-                    . $row->full_marks . "\t\t\t\tNumber Of Questions : " . $row->number_of_questions . "\tMarking Scheme: +" . $row->positive_mark . " and -" . $row->negative_mark . "<hr>";
-                    $i++;
-                }
-                ?>
+                <table  class="table">
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone</th> 
+                        <th>Email</th>
+
+                    </tr>
+                    <tr>
+                        <th>Kumar Gaurav</th>
+                        <th>+918653169502</th> 
+                        <th>gaurav999396@gmail.com</th>
+                    </tr>
+                    <tr>
+                        <th>Shivam Singh</th>
+                        <th>+919903667887</th> 
+                        <th>shivam.nitdgp@gmail.com</th>
+                    </tr>
+                    <tr>
+                        <th>Ankit Tiwari</th>
+                        <th>+918759101213</th> 
+                        <th>ankit.t1786@gmail.com</th>
+                    </tr>
+                    <tr>
+                        <th>Rijoy Mukherjee</th>
+                        <th>+919475458372</th> 
+                        <th>rijoy.mukherjee@gmail.com</th>
+                    </tr>
+                    <tr>
+                        <th>Subhash Kumar Das</th>
+                        <th>+918768390170</th> 
+                        <th>subhash.das4523@gmail.com</th>
+                    </tr>
+                    <tr>
+                        <th>Mousumi Saha</th>
+                        <th>+918926640588</th> 
+                        <th>sahamousumi88@gmail.com</th>
+                    </tr>
+                    <tr>
+                        <th>Anand Kumar</th>
+                        <th>+919733287397</th> 
+                        <th>anand12cs15@gmail.com</th>
+                    </tr>
+                    <tr>
+                        <th>Kartik Paswan</th>
+                        <th>+918101882098</th> 
+                        <th>rishirocks.kumar32@gmail.com</th>
+                    </tr>
+                    <tr>
+                        <th>Ram Narayan</th>
+                        <th>+919733280903</th> 
+                        <th>rambharadwaj555@gmail.com</th>
+                    </tr>
+
+
+                </table>
             </div>
         </div>
     </body>

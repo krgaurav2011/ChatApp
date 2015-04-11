@@ -16,7 +16,7 @@
                     <?php echo form_error('update_name'); ?>
                 </tr>
                 <tr>
-                    <td><b>sex *</td>
+                    <td><b>Sex *</td>
                     <td><input name="update_sex" type="radio" value="male">Male</td>
                     <br>
                     <td><input name="update_sex" type="radio" value="female">Female</td>
@@ -28,12 +28,12 @@
                     <?php echo form_error('update_photo'); ?>    
                 </tr>
                 <tr>
-                    <td><b>Designation* </td>
+                    <td><b>Designation * </td>
                     <td><input name="update_designation" type="text" /></td>
                     <?php echo form_error('update_designation'); ?>    
                 </tr>
                 <tr>
-                    <td><b>Age* </td>
+                    <td><b>Age * </td>
                     <td><input name="update_age" type="number" /></td>
                     <?php echo form_error('update_age'); ?>    
                 </tr>

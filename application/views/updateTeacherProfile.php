@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Test Description</title>
+        <title>Edit Profile</title>
         <link rel="stylesheet" href="http://localhost/ontest/Static/css/bootstrap.min.css"/>
         <script type="text/javascript" src="http://localhost/ontest/Static/js/googleJquery.js"></script>
         <script type="text/javascript" src="http://localhost/ontest/Static/js/bootstrap.min.js"></script>
@@ -11,14 +11,14 @@
 
         <style type="text/css">
             #panel{
-                position: relative;
+                position: absolute;
                 background-color: whitesmoke;
                 color: #000; 
                 padding-top: 1%;
                 padding-bottom: 1%;
-                margin: 1.3%;
+                margin: 4%;
                 padding-left: 0%;
-                width: 60%;
+                width: 80%;
                 margin-left: 10%;
                 border-radius: 1em;
                 opacity: 0.7;
@@ -38,7 +38,7 @@
                 opacity: 0.7;
             }
             body{
-                background: url("http://localhost/ontest/Static/images/Exam.jpg") fixed;
+                background: url("http://localhost/ontest/Static/images/quote1.jpg") fixed;
                 background-size: 98%;
             }
             #main{
@@ -78,25 +78,17 @@
             }
             #btn{
                 float: right;
-                width: 9em;
+                width: 7em;
                 text-decoration: none;
                 color: white;
             }
+            #space{
+                padding-bottom: 5px;
+            }
         </style>
     </head>
+
     <body>
-         <?php
-            $attempted--;
-            $question= $list[$attempted]->question;
-            $option1 = $list[$attempted]->option_1;
-            $option2 = $list[$attempted]->option_2;
-            $option3 = $list[$attempted]->option_3;
-            $option4 = $list[$attempted]->option_4;
-            $q_no = $list[$attempted]->q_no;
-            $positive=$list2[0]->positive_mark;
-            $negative=$list2[0]->negative_mark;
-            $num_of_questions = $list2[0]->number_of_questions;
-        ?> 
         <div id="header">
             <h1>e-Xamine</h1>
         </div>
@@ -110,7 +102,6 @@
                             <input type="submit" id="submi" value="Logout" class="btn-danger form-control">
                         </div>
                     </div>
-
                 </form>
             </div>
             <div id ="menu">
@@ -135,37 +126,42 @@
                         </div>
                     </a>
                 </div>
-            </div>
-            <div id="panel">
-               
-                <div class="well" style="padding-left: 10">
-                    
-                    <h2>
-                        <font color=red >Your Current Marks : <?php echo $marks; ?> <hr></font>
-                    </h2> 
-                    <h2><i><?php echo $q_no .". ". $question; ?> </i></h2>
-               
-                <form action="<?= base_url('/test/questionsubmit')?>" style="border-left-width: 10px;margin-left: 20px;" method ="post">
-                    <input type ="radio" name="resp" value="<?php echo $option1; ?>" > <?php echo $option1 ?> <br/>
-                    <input type ="radio" name="resp" value= "<?php echo $option2; ?>" > <?php echo $option2 ?> <br/>
-                    <input type ="radio" name="resp" value= "<?php echo $option3; ?>" > <?php echo $option3 ?> <br/>
-                    <input type ="radio" name="resp" value= "<?php echo $option4; ?>" > <?php echo $option4 ?> <br/>
-                    <input type ="hidden" name=question_no value="<?php echo $q_no;?>" >
-                    <input type ="hidden" name=test_no value="<?php echo $test_no;?>" >
-                    <input type ="hidden" name=positive value="<?php echo $positive;?>" >
-                    <input type ="hidden" name=negative value="<?php echo $negative;?>" >
-                    <input type ="hidden" name=score value="<?php echo $marks;?>" >
-                    <input type ="hidden" name=numq value="<?php echo $num_of_questions;?>" >
-                    <input style="margin-left: 100px;" type="submit" name="submit" value="Submit">
-                </form>
+                <div id="panel"><center>
+                        <h1 class="header">Update Your Profile</h1> 
+                        <form class="frm frm-login" id="login-form" action="<?= base_url('updateInfo/updateExistingTeacher'); ?>" method="post" name="login">
+                            <span id=""></span>
+                            <table>
+                                <tr>
+                                    <td ><b>Name *</b></td>
+                                    <td><input name="update_name" type="text" value="<?php echo set_value('update_name'); ?>"/></td>
+                                    <?php echo form_error('update_name'); ?>
+                                </tr>
+                                <tr>
+                                    <td><b>Sex *</td>
+                                    <td><input name="update_sex" type="radio" value="male">Male
+                                        <input name="update_sex" type="radio" value="female">Female</td>
+                                    <?php echo form_error('update_sex'); ?> 
+                                </tr>
+                                <tr>
+                                    <td><b>Photo </td>
+                                    <td><input name="update_photo" type="photo" /></td>
+                                    <?php echo form_error('update_photo'); ?>   
+                                </tr>
+                                <tr>
+                                    <td><b>Designation * </td>
+                                    <td><input name="update_designation" type="text" /></td>
+                                    <?php echo form_error('update_designation'); ?>    
+                                </tr>
+                                <tr>
+                                    <td><b>Age * </td>
+                                    <td><input name="update_age" type="number" /></td>
+                                    <?php echo form_error('update_age'); ?>    
+                                </tr>
+                            </table>
+                            <br>
+                            <button  class="btn btn-danger"><i class="fa fa-lock fa-fw " >  </i>  Submit</button>
+                    </center>
                 </div>
-            </div>
-            
-
-        </div>
-            
-           
-    
-    
-    
-  
+                </form>
+                </body>
+                </html>

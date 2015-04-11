@@ -19,4 +19,10 @@ class user_model extends CI_Model
         $query=$this->db->query($sql);
         return $query;
     }
+    function check_userprofile($email)
+    {
+        $sql="select check_user_type from users where email='$email'";
+        $query=$this->db->query($sql);
+        return $query;
+    }
 }    

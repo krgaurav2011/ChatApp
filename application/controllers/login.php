@@ -45,24 +45,27 @@ class Login extends CI_Controller {
                 $data = new stdClass();
                 $data->success =TRUE;
                 $data->errorMsg= "Login Successful!!";
-                echo json_encode($data);
+                
                     $profile = $row[0]->profile_complete;
                     if($row[0]->check_user_type=='Teacher'){
+                        $_SESSION['type'] = 1;
                 	if(($profile)==1){
-                    	redirect(base_url('home/home_page'));
+                            $data->loc = base_url('home/teacherhome_page');
                 	}
                 	else{
-                        redirect(base_url('updateInfo/doteacherInfo'));
+                            $data->loc = base_url('updateInfo/doteacherInfo');
                 	}
                     }
                     else if($row[0]->check_user_type=="Student"){
+                        $_SESSION['type'] = 2;
 			if($profile==1){
-			redirect(base_url('home/home_page'));
+			 $data->loc = base_url('home/studenthome_page');
 			}
 			else{
-			redirect(base_url('updateInfo/dostudentInfo'));     	
+			 $data->loc = base_url('updateInfo/dostudentInfo');     	
                 	}
                     }
+                 echo json_encode($data);
                 }
                 else {
                 $data = new stdClass();
